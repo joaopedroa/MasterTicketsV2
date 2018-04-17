@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar [color]="isAndroid ? 'royal' : 'primary'">
+    <ion-title>
+      Configuração
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <button ion-item *ngFor="let item of items" (click)="logOut(item)">
+          {{ item }}
+        </button>  
+    </ion-list>
+</ion-content>

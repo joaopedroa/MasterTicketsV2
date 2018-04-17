@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar [color]="isAndroid ? 'royal' : 'primary'">
+    <ion-title>Solicitação de Senhas</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    
+  <ion-slides pager>
+     
+    <ion-slide >
+      <h2>Reconhecimento de Firma</h2>
+      <button block ion-button  item-left (click) = 'reconhecimentoFirmaAutenticacao()'>Retirar Senha</button>
+
+      <ion-list >
+          
+        <ion-item *ngFor="let item of items | async" class = 'tickets'>
+         
+          {{item.ticket}}
+                     
+        </ion-item>
+      </ion-list> 
+
+
+    </ion-slide>
+ 
+    <ion-slide >
+      <h2>Procuração</h2>
+      <button block ion-button  item-left>Retirar Senha</button>
+    </ion-slide>
+  
+    <ion-slide >
+      <h2>Registro civil</h2>
+      <button block ion-button  item-left>Retirar Senha</button>
+    </ion-slide>
+
+    <ion-slide >
+        <h2>Escritura</h2>
+        <button block ion-button  item-left>Retirar Senha</button>
+    </ion-slide>
+  
+  </ion-slides>
+</ion-content>
