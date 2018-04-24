@@ -12,14 +12,11 @@
       <h2>Reconhecimento de Firma</h2>
       <button block ion-button  item-left (click) = 'reconhecimentoFirmaAutenticacao()'>Retirar Senha</button>
 
-      <ion-list >
-          
-        <ion-item *ngFor="let item of items | async" class = 'tickets'>
-         
-          {{item.ticket}}
-                     
+      <ion-card >
+        <ion-item *ngFor = 'let item of ticketAtual | async'>
+          {{item.ticket}} 
         </ion-item>
-      </ion-list> 
+      </ion-card>
 
 
     </ion-slide>
