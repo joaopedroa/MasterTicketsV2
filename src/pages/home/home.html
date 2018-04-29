@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar [color]="isAndroid ? 'royal' : 'primary'">
+  <ion-navbar color='secondary'>
     <ion-title>Solicitação de Senhas</ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,13 +9,18 @@
   <ion-slides pager>
      
     <ion-slide >
-      <h2>Reconhecimento de Firma</h2>
-      <button block ion-button  item-left (click) = 'reconhecimentoFirmaAutenticacao()'>Retirar Senha</button>
 
-      <ion-card >
-        <ion-item *ngFor = 'let item of ticketAtual | async'>
-          {{item.ticket}} 
-        </ion-item>
+    
+      <h2>Reconhecimento de Firma</h2>
+      <button block ion-button  item-left (click) = 'reconhecimentoFirmaAutenticacao()' color='secondary'  [disabled]="validaStatusReconhecimentoFirma !== 'Concluído'">Retirar Senha</button>
+           
+      <ion-card>
+          <ion-card-header  *ngFor = 'let item of ticketAtualRecochecimentoFirma | async'>
+              <h1 class = 'title'>{{item.ticket}} </h1> 
+            </ion-card-header>
+        <ion-card-content *ngFor = 'let item of ticketAtualRecochecimentoFirma | async' >         
+          <h3 class = 'status'>{{item.status}}</h3>
+        </ion-card-content>
       </ion-card>
 
 
@@ -23,17 +28,46 @@
  
     <ion-slide >
       <h2>Procuração</h2>
-      <button block ion-button  item-left>Retirar Senha</button>
+      <button block ion-button  item-left (click)  = 'procuracao()' color='secondary'  [disabled]="validaStatusProcuracao !== 'Concluído'">Retirar Senha</button>
+
+      <ion-card>
+          <ion-card-header  *ngFor = 'let item of ticketAtualProcuracao | async'>
+              <h1 class = 'title'>{{item.ticket}} </h1> 
+            </ion-card-header>
+        <ion-card-content *ngFor = 'let item of ticketAtualProcuracao | async' >         
+          <h3 class = 'status'>{{item.status}}</h3>
+        </ion-card-content>
+      </ion-card>
     </ion-slide>
   
     <ion-slide >
       <h2>Registro civil</h2>
-      <button block ion-button  item-left>Retirar Senha</button>
+      <button block ion-button  item-left  (click) = ' registroCivil()' color='secondary'  [disabled]="validaStatusRegistroCivil !== 'Concluído'">Retirar Senha</button>
+
+      <ion-card>
+          <ion-card-header  *ngFor = 'let item of ticketAtualRegistroCivil | async'>
+              <h1 class = 'title'>{{item.ticket}} </h1> 
+            </ion-card-header>
+        <ion-card-content *ngFor = 'let item of ticketAtualRegistroCivil | async' >         
+          <h3 class = 'status'>{{item.status}}</h3>
+        </ion-card-content>
+      </ion-card>
     </ion-slide>
 
     <ion-slide >
         <h2>Escritura</h2>
-        <button block ion-button  item-left>Retirar Senha</button>
+        <button block ion-button  item-left color='secondary' (click) = 'escritura()'  [disabled]="validaStatusEscritura !== 'Concluído'">Retirar Senha</button>
+
+        <ion-card>
+          <ion-card-header  *ngFor = 'let item of ticketAtualEscritura | async'>
+              <h1 class = 'title'>{{item.ticket}} </h1> 
+            </ion-card-header>
+        <ion-card-content *ngFor = 'let item of ticketAtualEscritura | async' >         
+          <h3 class = 'status'>{{item.status}}</h3>
+        </ion-card-content>
+      </ion-card>
+     
+
     </ion-slide>
   
   </ion-slides>
