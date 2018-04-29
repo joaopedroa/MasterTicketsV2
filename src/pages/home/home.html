@@ -1,22 +1,35 @@
 <ion-header>
   <ion-navbar color='secondary'>
-    <ion-title>Solicitação de Senhas</ion-title>
+    <ion-title>Solicitação de Senhas
+    
+       
+          
+
+      
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    
+    <ion-item>       
+        <ion-label>Preferencial</ion-label>  
+        <ion-toggle  checked="false" color="secondary" [(ngModel)] = 'validaPreferencial'></ion-toggle>
+       </ion-item> 
+       
   <ion-slides pager>
      
     <ion-slide >
-
+       
     
-      <h2>Reconhecimento de Firma</h2>
+      <h2>Firma e Autenticação</h2>
       <button block ion-button  item-left (click) = 'reconhecimentoFirmaAutenticacao()' color='secondary'  [disabled]="validaStatusReconhecimentoFirma !== 'Concluído'">Retirar Senha</button>
            
-      <ion-card>
+      <ion-card [ngStyle]= "validaStatusReconhecimentoFirma === 'Aberto' && {'background-color':'green'} ||
+                            validaStatusReconhecimentoFirma === 'Em Atendimento' && {'background-color':'red'} ||
+                            validaStatusReconhecimentoFirma === 'Concluído' && {'background-color':'blue'}
+                            "  >
           <ion-card-header  *ngFor = 'let item of ticketAtualRecochecimentoFirma | async'>
-              <h1 class = 'title'>{{item.ticket}} </h1> 
+              <h1 class = 'title' >{{item.ticket}} </h1> 
             </ion-card-header>
         <ion-card-content *ngFor = 'let item of ticketAtualRecochecimentoFirma | async' >         
           <h3 class = 'status'>{{item.status}}</h3>
