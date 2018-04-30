@@ -15,7 +15,8 @@ page-home {
        
     }
     .card {
-        background: #d1d1d1;
+        background: hsl(0, 0%, 86%);
+        
     }
     .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets{
         margin-bottom:40px;
@@ -25,5 +26,23 @@ page-home {
     }
     .teste2{
         background:green;
+    }
+    .slide-zoom{
+        height:100%;
+    }
+    .titleSlide{
+        margin-top:50px !important;
+    }
+    .quantidadePreferenciais{
+        border:solid 2px #007979
+    }
+    .quantidadeNormais{
+        border:solid 2px #007979
+    }
+    .titleTotal{
+        color:#007979
+    }
+    .contentTotal{
+        color:grey;
     }
 }

@@ -11,19 +11,29 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-item>       
-        <ion-label>Preferencial</ion-label>  
+    <ion-item >       
+        <ion-label> Preferencial</ion-label>  
         <ion-toggle  checked="false" color="secondary" [(ngModel)] = 'validaPreferencial'></ion-toggle>
        </ion-item> 
        
   <ion-slides pager>
      
     <ion-slide >
-       
-    
-      <h2>Firma e Autenticação</h2>
+        <ion-grid>
+            <ion-row>
+              <ion-col col-6 class = 'quantidadeNormais'>
+                <span class = 'titleTotal'>Normal</span> <br><span class = 'contentTotal'> {{validation}}</span>
+               </ion-col>
+               <ion-col col-6 class = 'quantidadePreferenciais'>
+                  <span class = 'titleTotal'> Preferencial</span> <br><span class = 'contentTotal'> {{validationPreferencial}}</span>
+                </ion-col>
+              
+            </ion-row>
+        </ion-grid>
+
+      <h2 class = 'titleSlide'>Firma e Autenticação</h2>
       <button block ion-button  item-left (click) = 'reconhecimentoFirmaAutenticacao()' color='secondary'  [disabled]="validaStatusReconhecimentoFirma !== 'Concluído'">Retirar Senha</button>
-           
+          
       <ion-card [ngStyle]= "validaStatusReconhecimentoFirma === 'Aberto' && {'background-color':'green'} ||
                             validaStatusReconhecimentoFirma === 'Em Atendimento' && {'background-color':'red'} ||
                             validaStatusReconhecimentoFirma === 'Concluído' && {'background-color':'blue'}
@@ -33,14 +43,24 @@
             </ion-card-header>
         <ion-card-content *ngFor = 'let item of ticketAtualRecochecimentoFirma | async' >         
           <h3 class = 'status'>{{item.status}}</h3>
+          
         </ion-card-content>
       </ion-card>
-
-
     </ion-slide>
  
     <ion-slide >
-      <h2>Procuração</h2>
+        <ion-grid>
+            <ion-row>
+              <ion-col col-6 class = 'quantidadeNormais'>
+                <span class = 'titleTotal'>Normal</span> <br><span class = 'contentTotal'> {{validationProcuracao}}</span>
+               </ion-col>
+               <ion-col col-6 class = 'quantidadePreferenciais'>
+                  <span class = 'titleTotal'> Preferencial</span> <br><span class = 'contentTotal'> {{validationProcuracaoPreferencial}}</span>
+                </ion-col>
+              
+            </ion-row>
+        </ion-grid>
+      <h2 class = 'titleSlide'>Procuração</h2>
       <button block ion-button  item-left (click)  = 'procuracao()' color='secondary'  [disabled]="validaStatusProcuracao !== 'Concluído'">Retirar Senha</button>
 
       <ion-card>
@@ -54,7 +74,18 @@
     </ion-slide>
   
     <ion-slide >
-      <h2>Registro civil</h2>
+        <ion-grid>
+            <ion-row>
+              <ion-col col-6 class = 'quantidadeNormais'>
+                <span class = 'titleTotal'>Normal</span> <br><span class = 'contentTotal'> {{validationRegistroCivil}}</span>
+               </ion-col>
+               <ion-col col-6 class = 'quantidadePreferenciais'>
+                  <span class = 'titleTotal'> Preferencial</span> <br><span class = 'contentTotal'> {{validationRegistroCivilPreferencial}}</span>
+                </ion-col>
+              
+            </ion-row>
+        </ion-grid>
+      <h2 class = 'titleSlide'>Registro civil</h2>
       <button block ion-button  item-left  (click) = ' registroCivil()' color='secondary'  [disabled]="validaStatusRegistroCivil !== 'Concluído'">Retirar Senha</button>
 
       <ion-card>
@@ -68,7 +99,18 @@
     </ion-slide>
 
     <ion-slide >
-        <h2>Escritura</h2>
+        <ion-grid>
+            <ion-row>
+              <ion-col col-6 class = 'quantidadeNormais'>
+                <span class = 'titleTotal'>Normal</span> <br><span class = 'contentTotal'> {{validationEscritura}}</span>
+               </ion-col>
+               <ion-col col-6 class = 'quantidadePreferenciais'>
+                  <span class = 'titleTotal'> Preferencial</span> <br><span class = 'contentTotal'> {{validationEscrituraPreferencial}}</span>
+                </ion-col>
+              
+            </ion-row>
+        </ion-grid>
+        <h2 class = 'titleSlide'>Escritura</h2>
         <button block ion-button  item-left color='secondary' (click) = 'escritura()'  [disabled]="validaStatusEscritura !== 'Concluído'">Retirar Senha</button>
 
         <ion-card>
