@@ -169,12 +169,6 @@ this.ItemsTotalEscrituraPreferencial.forEach(item => {
 
         this.ticketReconhecimentoFirma= novoID
       }else{
-        let senhaInicial: any = [];
-        senhaInicial = {id: novoID, ticket: 'B1', status:'Aberto',number:1 , date: dataAtual, typeTicket: 'Normal'};
-
-        this.database.object(caminhoInsert).set(senhaInicial);
-
-        this.ticketReconhecimentoFirma = novoID
 
         let novoTicketBase = {
           id: novoID,          
