@@ -1,4 +1,5 @@
 ## Setup machine
+version: 1.0
 machine:
   java:
     version: 'oraclejdk8'
