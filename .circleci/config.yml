@@ -84,7 +84,9 @@ base: &base
     - save_cache: *save-cache-v1-toolkit
     - save_cache: *save-cache-cli-scripts
     - save_cache: *save-cache-ionic
-    - run: npm run ionic:build
+    - run: npm install -g ionic cordova
+    - run: ionic cordova build ios
+    - run: ionic cordova build android 
     - run: npm run lint
     - run: npm run test
     - persist_to_workspace:
@@ -93,17 +95,9 @@ base: &base
           - "*"
 
 jobs:
-  node-6:
-    docker:
-      - image: circleci/node:6
-    <<: *base
   node-8:
     docker:
       - image: circleci/node:8
-    <<: *base
-  node-latest:
-    docker:
-      - image: circleci/node:latest
     <<: *base
   deploy:
     <<: *defaults
