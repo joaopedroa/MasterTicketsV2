@@ -1,128 +1,15 @@
 version: 2
-
-aliases:
-  - &restore-cache
-      keys:
-        - dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-framework/package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-hooks/package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-utils/package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/discover/package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/lab/package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/schematics-angular/package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/v1-toolkit/package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/cli-scripts/package.json" }}
-        - dependency-cache-{{ .Branch }}-{{ checksum "packages/ionic/package.json" }}
-
-  - &save-cache
-      key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
-      paths:
-        - node_modules
-
-  - &save-cache-cli-framework
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-framework/package.json" }}
-      paths:
-        - packages/@ionic/cli-framework/node_modules
-
-  - &save-cache-cli-hooks
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-hooks/package.json" }}
-      paths:
-        - packages/@ionic/cli-hooks/node_modules
-
-  - &save-cache-cli-utils
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-utils/package.json" }}
-      paths:
-        - packages/@ionic/cli-utils/node_modules
-
-  - &save-cache-discover
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/discover/package.json" }}
-      paths:
-        - packages/@ionic/discover/node_modules
-
-  - &save-cache-lab
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/lab/package.json" }}
-      paths:
-        - packages/@ionic/lab/node_modules
-
-  - &save-cache-schematics-angular
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/schematics-angular/package.json" }}
-      paths:
-        - packages/@ionic/schematics-angular/node_modules
-
-  - &save-cache-v1-toolkit
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/v1-toolkit/package.json" }}
-      paths:
-        - packages/@ionic/v1-toolkit/node_modules
-
-  - &save-cache-cli-scripts
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/cli-scripts/package.json" }}
-      paths:
-        - packages/cli-scripts/node_modules
-
-  - &save-cache-ionic
-      key: dependency-cache-{{ .Branch }}-{{ checksum "packages/ionic/package.json" }}
-      paths:
-        - packages/ionic/node_modules
-
-defaults: &defaults
-  working_directory: /tmp/workspace
-
-base: &base
-  <<: *defaults
-  steps:
-    - checkout
-    - restore_cache: *restore-cache
-    - run: npm install
-    - save_cache: *save-cache
-    - run: npm run bootstrap
-    - save_cache: *save-cache-cli-framework
-    - save_cache: *save-cache-cli-hooks
-    - save_cache: *save-cache-cli-utils
-    - save_cache: *save-cache-discover
-    - save_cache: *save-cache-lab
-    - save_cache: *save-cache-schematics-angular
-    - save_cache: *save-cache-v1-toolkit
-    - save_cache: *save-cache-cli-scripts
-    - save_cache: *save-cache-ionic
-    - run: npm run lint
-    - run: npm run test
-    - persist_to_workspace:
-        root: /tmp/workspace
-        paths:
-          - "*"
-
 jobs:
-  node-6:
-    docker:
-      - image: circleci/node:6
-    <<: *base
-  node-8:
-    docker:
-      - image: circleci/node:8
-    <<: *base
-  node-latest:
-    docker:
-      - image: circleci/node:latest
-    <<: *base
-  deploy:
-    <<: *defaults
-    docker:
-      - image: circleci/node:8
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-      - run: npm run publish:ci-4.x -- --yes
-
-workflows:
-  version: 2
   build:
-    jobs:
-      - node-6
-      - node-8
-      - node-latest
-      # - deploy:
-      #     requires: [node-6, node-8, node-latest]
-      #     filters:
-      #       branches:
-      #         only: master
+    docker:
+      - image: beevelop/ionic
+    steps:
+      - checkout
+      - run:
+          name: Install node modules
+          command: npm install
+      - run:
+          name: Building android
+          command: ionic cordova build android
+      - store_artifacts:
+          path: platforms/android/build/outputs/apk/android-debug.apk
