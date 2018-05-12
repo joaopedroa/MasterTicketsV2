@@ -1,7 +1,7 @@
 version: 2
 
 aliases:
-  - &restore-cache
+  - restore-cache
       keys:
         - dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
         - dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-framework/package.json" }}
@@ -14,57 +14,57 @@ aliases:
         - dependency-cache-{{ .Branch }}-{{ checksum "packages/cli-scripts/package.json" }}
         - dependency-cache-{{ .Branch }}-{{ checksum "packages/ionic/package.json" }}
 
-  - &save-cache
+  - save-cache
       key: dependency-cache-{{ .Branch }}-{{ checksum "package.json" }}
       paths:
         - node_modules
 
-  - &save-cache-cli-framework
+  - save-cache-cli-framework
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-framework/package.json" }}
       paths:
         - packages/@ionic/cli-framework/node_modules
 
-  - &save-cache-cli-hooks
+  - save-cache-cli-hooks
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-hooks/package.json" }}
       paths:
         - packages/@ionic/cli-hooks/node_modules
 
-  - &save-cache-cli-utils
+  - save-cache-cli-utils
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/cli-utils/package.json" }}
       paths:
         - packages/@ionic/cli-utils/node_modules
 
-  - &save-cache-discover
+  - save-cache-discover
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/discover/package.json" }}
       paths:
         - packages/@ionic/discover/node_modules
 
-  - &save-cache-lab
+  - save-cache-lab
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/lab/package.json" }}
       paths:
         - packages/@ionic/lab/node_modules
 
-  - &save-cache-schematics-angular
+  - save-cache-schematics-angular
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/schematics-angular/package.json" }}
       paths:
         - packages/@ionic/schematics-angular/node_modules
 
-  - &save-cache-v1-toolkit
+  - save-cache-v1-toolkit
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/@ionic/v1-toolkit/package.json" }}
       paths:
         - packages/@ionic/v1-toolkit/node_modules
 
-  - &save-cache-cli-scripts
+  - save-cache-cli-scripts
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/cli-scripts/package.json" }}
       paths:
         - packages/cli-scripts/node_modules
 
-  - &save-cache-ionic
+  - save-cache-ionic
       key: dependency-cache-{{ .Branch }}-{{ checksum "packages/ionic/package.json" }}
       paths:
         - packages/ionic/node_modules
 
-defaults: &defaults
+defaults: defaults
   working_directory: /tmp/workspace
 
 base: &base
@@ -84,9 +84,6 @@ base: &base
     - save_cache: *save-cache-v1-toolkit
     - save_cache: *save-cache-cli-scripts
     - save_cache: *save-cache-ionic
-    - run: npm install ionic cordova
-    - run: ionic cordova build ios
-    - run: ionic cordova build android 
     - run: npm run lint
     - run: npm run test
     - persist_to_workspace:
@@ -108,6 +105,9 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      - run: npm install -g ionic cordova
+      - run: ionic cordova build ios
+      - run: ionic cordova build android 
       - run: npm run publish:ci-4.x -- --yes
       - cp -r platforms/android/build/outputs/apk $CIRCLE_ARTIFACTS
 
