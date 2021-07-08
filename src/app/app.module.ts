@@ -23,12 +23,12 @@ import{LoginPage} from '../pages/login/login'
 import { CrudProvider } from '../providers/crud/crud';
 
 const firebaseAuth = {
-  apiKey: "AIzaSyDOPTzP3cQXyy2QsDJ4z1FiUnZbDvTmRY4",
-  authDomain: "cartorio-c86b4.firebaseapp.com",
-  databaseURL: "https://cartorio-c86b4.firebaseio.com",
-  projectId: "cartorio-c86b4",
-  storageBucket: "cartorio-c86b4.appspot.com",
-  messagingSenderId: "204016683419"
+  apiKey: "AIzaSyA3okSt79NEJ6bjA9_8K958u1I90rXaJmE",
+  authDomain: "mastertickets-4df61.firebaseapp.com",
+  databaseURL: "https://mastertickets-4df61.firebaseio.com",
+  projectId: "mastertickets-4df61",
+  storageBucket: "mastertickets-4df61.appspot.com",
+  messagingSenderId: "613727395354"
 };
 
 
